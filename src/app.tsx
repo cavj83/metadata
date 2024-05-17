@@ -6,7 +6,13 @@ import { withProviders } from "@/app/hocs";
 import { useWalletSync } from "@/features/wallet/hooks";
 import { Home } from "./pages/home";
 import { NavBar } from "./pages/home/navbar";
-import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text,Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon, Box, Grid, GridItem,Flex,Spacer } from '@chakra-ui/react'
+  
+
 function Component() {
   const { isApiReady } = useApi();
   const { isAccountReady } = useAccount();
@@ -17,18 +23,52 @@ function Component() {
 
   return (
     <>
-      <Card key="Home" size="sm">
-        <CardHeader>
+    <Card key="Home" size="sm" bg="#8C2CFF">
+        <CardHeader bg="#111120">
           <Header isAccountVisible={isAccountReady}/>
         </CardHeader>
-        <CardBody>
-            {isAppReady ? <Home /> : <ApiLoader />}
+        <CardBody bg='#8C2CFF'>
+          <Flex>
+            <Box p='4' bg='#8C2CFF'>
+              <Accordion defaultIndex={[0]} allowMultiple>
+                  <AccordionItem>
+                    <h2>
+                      <AccordionButton>
+                        <Box as='span' flex='1' textAlign='left'>
+                          Main
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      Lorem 
+                    </AccordionPanel>
+                  </AccordionItem>
+                  <AccordionItem>
+                    <h2>
+                      <AccordionButton>
+                        <Box as='span' flex='1' textAlign='left'>
+                          Networks
+                        </Box>
+                        <AccordionIcon />
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4}>
+                      Lorem 
+                    </AccordionPanel>
+                  </AccordionItem>
+              </Accordion>
+            </Box>
+            <Box flex='1' bg='green.400'>
+              {isAppReady ? <Home /> : <ApiLoader />}
+            </Box>
+          </Flex>
         </CardBody>
-        <CardFooter>
+        <CardFooter bg='blue.300'>
           <Heading size="lg">Stay Conneted</Heading>
           {<img id="imglogo"  className="img-fluid img-thumbnail" src="./src\img\Slogan\Eslogan2.png"/>}
         </CardFooter>
-      </Card>
+    </Card>
     </>
   );
 }
