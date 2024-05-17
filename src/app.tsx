@@ -10,7 +10,7 @@ import { Card, CardHeader, CardBody, CardFooter, Stack, Heading, Text,Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon, Box, Grid, GridItem,Flex,Spacer } from '@chakra-ui/react'
+  AccordionIcon, Box, Grid, GridItem,Flex,Spacer,Button } from '@chakra-ui/react'
   
 
 function Component() {
@@ -35,26 +35,34 @@ function Component() {
                     <h2>
                       <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
-                          Main
+                          <Heading size="lg">Main</Heading>
                         </Box>
                         <AccordionIcon />
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                      Lorem 
+                      <Stack spacing='2'>
+                        {['Dashboard', 'Conferencias', 'Certificatios','Settings'].map((opc) => (
+                            <Button backgroundColor="#8C2CFF" ><Heading size="md">{opc}</Heading></Button>
+                        ))}
+                      </Stack>
                     </AccordionPanel>
                   </AccordionItem>
                   <AccordionItem>
                     <h2>
                       <AccordionButton>
                         <Box as='span' flex='1' textAlign='left'>
-                          Networks
+                          <Heading size="lg">Networks</Heading>
                         </Box>
                         <AccordionIcon />
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                      Lorem 
+                      <Stack spacing='2'>
+                        {['Inbox', 'Notifications', 'Comments'].map((opc) => (
+                            <Button backgroundColor="#8C2CFF" ><Heading size="md">{opc}</Heading></Button>
+                        ))}
+                      </Stack>
                     </AccordionPanel>
                   </AccordionItem>
               </Accordion>
