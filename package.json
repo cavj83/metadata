@@ -4,8 +4,9 @@
   "version": "1.0.1",
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "build": "yarn build:packages && tsc && vite build",
+    "dev": "vite",
+    "start": "vite --open --host",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
