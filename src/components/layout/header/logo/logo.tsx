@@ -4,7 +4,7 @@ import './logo.module.scss';
 function Logo() {
   return (
     <Link to="/">
-      <h1>LOGO</h1>
+      <img id="imglogo" width="80" className="img-fluid img-thumbnail" src="./LogoUVE2.svg"/>
     </Link>
   );
 }
