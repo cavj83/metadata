@@ -1,6 +1,7 @@
 
+import React from "react";
 import { Card, Center, Heading, VStack } from "@chakra-ui/react";
-
+//import { AllNFTCollection } from "./MyNFT";
 function Info() {
   return (
     <Card>
