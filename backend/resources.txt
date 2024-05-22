@@ -1,0 +1,28 @@
+For NFTs:
+https://wiki.gear-tech.io/docs/examples/Standards/gnft-721/
+
+Factory Contract Template:
+https://github.com/Vara-Lab/Smart-Contract-Factory-Template/tree/main
+
+ToDo:
+[X] 1. Verify NFT Contract in /backend
+[X] 2. Verify Init() in Fabricator for NFT instead of FT
+[] 3. Delete unnecesary fields where applies.
+[] 4. Verify IO dependencies before push into main
+[] 4.1. Consolidate dependencies of Cargo.toml files in Fabricator and NFT
+[] 5. Personalize Both Fabricator and UVENFTS to adapt to UVE Platform
+
+
+
+CLI:
+cargo build --release for quicker compilation after modifications to repo
+Note: Delete \target folder after it compiles succesfully to avoid residual/trash files
+
+Folder Structure as of (24-05-21)
+_backend
+    _fabricator
+        _io
+        _src
+    _uvenfts
+        _io
+        _src

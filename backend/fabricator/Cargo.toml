@@ -1,5 +1,5 @@
 [package]
-name = "factory_template"
+name = "UVEFabricator"
 version.workspace = true
 edition.workspace = true
 license.workspace = true

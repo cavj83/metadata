@@ -9,11 +9,17 @@ pub type Id = u64;
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
 pub enum FactoryAction {
-    CreateProgram { init_config: InitConfig },
+    CreateProgram { init_config: InitNft },
     CodeIdUpdate { new_code_id: CodeId },
     UpdateGasProgram(u64),
     AddAdmin { admin_actor_id: ActorId },
     RemoveRegistry { id: Id },
+}
+
+#[derive(Default, Debug, Encode, Decode, TypeInfo)]
+pub struct Collection {
+    pub name: String,
+    pub description: String,
 }
 
 #[derive(Encode, Decode, TypeInfo, Clone, Debug)]
@@ -31,7 +37,6 @@ pub enum FactoryEvent {
     ProgramCreated {
         id: Id,
         address: ActorId,
-        init_config: InitConfig,
     },
     GasUpdatedSuccessfully {
         updated_by: ActorId,
@@ -66,14 +71,18 @@ pub enum FactoryError {
 }
 
 
-#[derive(Debug, Decode, Encode, TypeInfo, Clone)]
+#[derive(Debug, Decode, Encode, TypeInfo)]
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
-pub struct InitConfig {
-    pub field: String,
-    
+pub struct InitNft {
+    pub collection: Collection,
+    pub config: Config,
 }
 
+#[derive(Default, Debug, Encode, Decode, TypeInfo, Clone)]
+pub struct Config {
+    pub max_mint_count: Option<u128>,
+}
 
 #[derive(Debug, Decode, Encode, TypeInfo)]
 #[codec(crate = gstd::codec)]
