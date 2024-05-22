@@ -1,1 +1,3 @@
 node_modules
+/backend/fabricator/target/debug
+/backend/fabricator/target/wasm-projects

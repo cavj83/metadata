@@ -92,5 +92,5 @@ impl Metadata for ProgramMetadata {
     type Others = ();
     type Reply = ();
     type Signal = ();
-    type State = InOut<Query, QueryReply>;
+    type State = ();
 }
