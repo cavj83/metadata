@@ -189,5 +189,4 @@ extern "C" fn state() {
             .take()
             .expect("Unexpected error in taking state")
     };
-    msg::reply(reply, 0).expect("Error on state");
 }
