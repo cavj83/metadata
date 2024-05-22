@@ -1,3 +1,7 @@
 node_modules
 /backend/fabricator/target/debug
 /backend/fabricator/target/wasm-projects
+/backend/fabricator/target/release
+/backend/uvenfts/target/debug
+/backend/uvenfts/target/wasm-projects
+/backend/uvenfts/target/release
