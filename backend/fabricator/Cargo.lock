@@ -3,6 +3,17 @@
 version = 3
 
 [[package]]
+name = "UVEFabricator"
+version = "0.1.3"
+dependencies = [
+ "gear-wasm-builder",
+ "gstd",
+ "io",
+ "parity-scale-codec",
+ "scale-info",
+]
+
+[[package]]
 name = "ahash"
 version = "0.8.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -338,17 +349,6 @@ checksum = "534c5cf6194dfab3db3242765c03bbe257cf92f22b38f6bc0c58d59108a820ba"
 dependencies = [
  "libc",
  "windows-sys 0.52.0",
-]
-
-[[package]]
-name = "factory_template"
-version = "0.1.3"
-dependencies = [
- "gear-wasm-builder",
- "gstd",
- "io",
- "parity-scale-codec",
- "scale-info",
 ]
 
 [[package]]
