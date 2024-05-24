@@ -23,15 +23,15 @@ pub struct StateFactory {
 impl StateFactory {
     pub async fn create_program(
         &mut self,
-        init_config: InitConfig,
+        init_config: InitNft,
     ) -> Result<FactoryEvent, FactoryError> {
         
         let create_program_future =
-            ProgramGenerator::create_program_with_gas_for_reply::<InitConfig>(
+            ProgramGenerator::create_program_with_gas_for_reply::<InitNft>(
                 self.code_id,
-                InitConfig {
-                    field: init_config.field.clone(),
-                    
+                InitNft {
+                    collection: init_config.collection,
+                    config: init_config.config.clone()
                 },
                 self.gas_for_program,
                 0,
@@ -49,17 +49,11 @@ impl StateFactory {
             .entry(self.number)
             .or_insert(address);
 
-        let record = Record {
-            field: init_config.field.clone(),
-        };
-
         let programs_for_actor = self.registry.entry(msg::source()).or_default();
-        programs_for_actor.push((self.number, record.clone()));
 
         Ok(FactoryEvent::ProgramCreated {
             id: self.number,
             address: address,
-            init_config: init_config,
         })
     }
 
@@ -137,6 +131,10 @@ impl StateFactory {
     }
 }
 
+/*CodeId needs to be modified so it receives an NFT CodeId instead of FT
+See: https://wiki.gear-tech.io/docs/examples/Standards/gnft-721/
+
+*/
 #[no_mangle]
 extern "C" fn init() {
     let init_config_factory: InitConfigFactory =
