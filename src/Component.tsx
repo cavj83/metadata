@@ -10,6 +10,7 @@ import { Settings } from "./pages/home/Settings";
 import { Inbox } from "./pages/home/Inbox";
 import { Notifications } from "./pages/home/Notifications";
 
+
 import {
   Card, CardHeader, CardBody, CardFooter, Stack, Heading, Accordion,
   AccordionItem,
@@ -18,21 +19,6 @@ import {
   AccordionIcon, Box, Flex, Button,Icon
 } from '@chakra-ui/react';
 
-import {
-  ChakraProvider,
-  CSSReset,
-  //Box,
-  //Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  //Heading,
-} from '@chakra-ui/react';
 
 import { Comments } from './pages/home/Comments';
 //import { info } from 'console';
@@ -65,57 +51,8 @@ export function Component() {
         return <Info />;
     }
   }
-  const {
-    isOpen, onOpen,
-    onClose
-} = useDisclosure();
   return (
-    <>
-
-          <ChakraProvider>
-            <CSSReset />
-            <Box p={5}>
-                <Button onClick={onOpen}>
-                    Open GeeksforGeeks
-                    Courses Modal
-                </Button>
-                <Modal isOpen={isOpen}
-                    onClose={onClose} size="lg">
-                    <ModalOverlay />
-                    <ModalContent borderRadius="md">
-                        <ModalHeader>
-                            <Heading as="h1" color="green.500">
-                                GeeksforGeeks
-                            </Heading>
-                            <Heading as="h3" fontSize="xl"
-                                mt={2} color="gray.500">
-                                Chakra UI Overlay Modal
-                            </Heading>
-                        </ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-                            <p>
-                                Explore a variety of courses
-                                on GeeksforGeeks to enhance your
-                                skills in JavaScript, React, and
-                                many more technologies.
-                            </p>
-                            <ul>
-                                <li>JavaScript Fundamentals</li>
-                                <li>React Essentials</li>
-                                <li>Data Structures and Algorithms</li>
-                            </ul>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button colorScheme="blue"
-                                mr={3} onClick={onClose}>
-                                Close
-                            </Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
-            </Box>
-          </ChakraProvider>
+    <>   
       <Card key="Home" size="sm" bg="#8C2CFF">
         <CardHeader bg="#111120">
           <Header isAccountVisible={isAccountReady} />
