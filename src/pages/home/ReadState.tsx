@@ -1,7 +1,7 @@
 import { ProgramMetadata } from "@gear-js/api";
 import { useState } from "react";
 import { useApi, useAlert } from "@gear-js/react-hooks";
-import { Button, Card, Center, Heading, VStack, Text } from "@chakra-ui/react";
+import { Card, Center, VStack, Text } from "@chakra-ui/react";
 import {RedColor} from "./Red-Color";
 function ReadState() {
   const { api } = useApi();
@@ -11,7 +11,7 @@ function ReadState() {
   const [fullState, setFullState] = useState<any | undefined>(0);
 
 
-  const color = (fullState.currentLight) ?? "Black";
+  //const color = (fullState.currentLight) ?? "Black";
 
    // Add your programID
    const programIDFT =

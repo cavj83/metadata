@@ -1,7 +1,16 @@
 
 import React from "react";
-import { Card, CardHeader, CardBody, CardFooter, Center, Heading, VStack } from "@chakra-ui/react";
-import { Car } from "lucide-react";
+import { Card, 
+  CardHeader, 
+  CardBody, 
+  CardFooter, 
+  Center, 
+  Heading, 
+  VStack, 
+  Text } from "@chakra-ui/react";
+//import { Car } from "lucide-react";
+
+
 //import { AllNFTCollection } from "./MyNFT";
 function Info() {
   return (
@@ -21,9 +30,9 @@ function Info() {
               </CardHeader>
               <CardBody>
                 <Heading>Creation of personalized learning environments</Heading>
-                <text>
+                <Text>
                   If allows users to create unique spaces to educate their communities in a personalized way.
-                </text>
+                </Text>
               </CardBody>
             </Card>
             <Card bg='#ea49ee'>
@@ -32,9 +41,9 @@ function Info() {
               </CardHeader>
               <CardBody>
                 <Heading>Integrated Tokenization</Heading>
-                <text>
+                <Text>
                   Id offers integrated functionality to tokenize both educational content (workshops or marterclasses) and audio content (podcasts and debates). providing monetisation opportunities.
-                </text>
+                </Text>
               </CardBody>
             </Card>
             <Card bg='#FF0058'>
@@ -43,9 +52,9 @@ function Info() {
               </CardHeader>
               <CardBody>
                 <Heading>Descentralized Monetization System</Heading>
-                <text>
+                <Text>
                   Facilitate the monetisation of content, allowing users to obtain a greater economic return on their educational content and creation efforts.
-                </text>
+                </Text>
               </CardBody>
             </Card>
           </CardFooter>

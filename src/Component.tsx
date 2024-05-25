@@ -73,7 +73,7 @@ export function Component() {
                   <AccordionPanel pb={4}>
                     <Stack spacing='2'>
                       {['Dashboard', 'Conferences', 'Certifications', 'Settings'].map((opc) => (
-                        <Button backgroundColor="#8C2CFF" onClick={() => handleClick({opc})}><Heading size="md">{opc}</Heading></Button>
+                        <Button backgroundColor="#8C2CFF" key={opc} onClick={() => handleClick({opc})}><Heading size="md">{opc}</Heading></Button>
                       ))}
                     </Stack>
                   </AccordionPanel>
@@ -90,7 +90,7 @@ export function Component() {
                   <AccordionPanel pb={4}>
                     <Stack spacing='2'>
                       {['Inbox', 'Notifications', 'Comments'].map((opc) => (
-                        <Button backgroundColor="#8C2CFF" onClick={() => handleClick({opc})}><Heading size="md">{opc}</Heading></Button>
+                        <Button backgroundColor="#8C2CFF" key={opc} onClick={() => handleClick({opc})}><Heading size="md">{opc}</Heading></Button>
                       ))}
                     </Stack>
                   </AccordionPanel>

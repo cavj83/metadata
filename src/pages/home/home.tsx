@@ -6,7 +6,9 @@ function Home() {
   return (
     <Center>
       <HStack>
-        <ReadState />
+        <VStack>
+          <ReadState />
+        </VStack>
       </HStack>
     </Center>
   );
