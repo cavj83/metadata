@@ -28,8 +28,8 @@ export interface HeadingProps extends BaseHTMLAttributes<HTMLHeadingElement>, Va
 
 export function Heading({ children, className, size, weight, ...props }: HeadingProps) {
   return (
-    <h2 className={headingVariants({ size, weight, className })} {...props}>
+    <div className={headingVariants({ size, weight, className })} {...props}>
       {children}
-    </h2>
+    </div>
   );
 }

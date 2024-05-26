@@ -45,7 +45,7 @@ export function ModalBottom({ heading, children, onClose }: Props) {
     <motion.dialog ref={ref} onClick={handleClick} className={styles.modal}>
       <motion.div className={styles.wrapper}>
         <div className={styles.header}>
-          <h2 className={styles.title}>{heading}</h2>
+          <div className={styles.title}>{heading}</div>
           <Button variant="text" onClick={onClose} className={styles['modal-close']}>
             <CrossIcon />
           </Button>

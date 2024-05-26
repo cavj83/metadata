@@ -1,7 +1,7 @@
 import { ProgramMetadata } from "@gear-js/api";
 import { useState } from "react";
 import { useApi, useAlert } from "@gear-js/react-hooks";
-import { Card, Center, VStack, Text } from "@chakra-ui/react";
+import { Card, Center, VStack, Text,Box } from "@chakra-ui/react";
 import {RedColor} from "./Red-Color";
 function ReadState() {
   const { api } = useApi();
@@ -10,8 +10,6 @@ function ReadState() {
 
   const [fullState, setFullState] = useState<any | undefined>(0);
 
-
-  //const color = (fullState.currentLight) ?? "Black";
 
    // Add your programID
    const programIDFT =
@@ -23,18 +21,23 @@ function ReadState() {
 
   const metadata = ProgramMetadata.from(meta);
 
+  const [arrayState, setArrayState] = useState(["name",
+  "description",
+  "media",
+  "reference"]);
+
   const getState = () => {
     api.programState
       .read({ programId: programIDFT, payload: "all"}, metadata)
       .then((result) => {
         setFullState(result.toJSON());
-        console.log(fullState);
+        if(fullState) setArrayState(fullState!.all.tokenMetadataById);
+        //console.log(arrayState);
       })
       .catch(({ message }: Error) => alert.error(message));
   };
 
   getState();
-
   return (
     <Card>
       <Center>
@@ -42,7 +45,12 @@ function ReadState() {
           <VStack>
             <RedColor />
           </VStack>
-          <Text>{JSON.stringify(fullState)}</Text>
+          <ul>
+          {fullState?
+          arrayState.map(item => (
+          <li key={item[0]}><img id="imglogo" alt="Logo" width="80" className="img-fluid img-thumbnail" src={item[1].media}/></li>))
+          :<li key="0"></li>}
+          </ul>
         </VStack>
       </Center>
     </Card>

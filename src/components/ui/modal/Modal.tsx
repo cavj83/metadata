@@ -51,7 +51,7 @@ export function Modal({ heading, children, onClose }: Props) {
       className={styles.modal}>
       <motion.div initial="enter" animate="center" exit="exit" variants={variantsPanel} className={styles.wrapper}>
         <div className={styles.header}>
-          <h2 className={styles.title}>{heading}</h2>
+          <div className={styles.title}>{heading}</div>
 
           <Button variant="text" onClick={onClose} className={styles['modal-close']}>
             <CrossIcon />

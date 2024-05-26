@@ -3,7 +3,7 @@ import { useAccount, useApi } from "@gear-js/react-hooks";
 import { ApiLoader } from "@/components";
 import { useWalletSync } from "@/features/wallet/hooks";
 import { Home } from "./pages/home";
-import { Info } from "./pages/home/info";
+import { Welcome } from "./pages/home/welcome";
 import { Conferences } from "./pages/home/Conferences";
 import { Settings } from "./pages/home/Settings";
 import { Inbox } from "./pages/home/Inbox";
@@ -11,11 +11,11 @@ import { Notifications } from "./pages/home/Notifications";
 
 
 import {
-  Card, CardHeader, CardBody, CardFooter, Stack, Heading, Accordion,
+  Card, CardBody,  Stack, Heading, Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon, Box, Flex, Button,Icon
+  AccordionIcon, Box, Flex, Button, Text
 } from '@chakra-ui/react';
 
 
@@ -39,7 +39,7 @@ export function Component() {
   }
   function MyComponent() {
     switch (index) {
-      case "Dashboard": return <Info />;
+      case "Dashboard": return <Welcome />;
       case "Conferences": return <Conferences />;break;
       case "Settings": return <Settings />;break;
       case "Certifications": return isAppReady ? <Home /> : <ApiLoader />;
@@ -47,7 +47,7 @@ export function Component() {
       case "Notifications": return <Notifications/>; break;
       case "Comments": return <Comments />; break;
       default:
-        return <Info />;
+        return <Welcome />;
     }
   }
   return (
@@ -61,14 +61,14 @@ export function Component() {
             <Box p='4' bg='#8C2CFF'>
               <Accordion defaultIndex={[0]} allowMultiple rounded='lg'>
                 <AccordionItem>
-                  <h2>
+                  <div>
                     <AccordionButton>
                       <Box as='span' flex='1' textAlign='left'>
                         <Heading size="lg">Main</Heading>
                       </Box>
                       <AccordionIcon />
                     </AccordionButton>
-                  </h2>
+                  </div>
                   <AccordionPanel pb={4}>
                     <Stack spacing='2'>
                       {['Dashboard', 'Conferences', 'Certifications', 'Settings'].map((opc) => (
@@ -78,14 +78,14 @@ export function Component() {
                   </AccordionPanel>
                 </AccordionItem>
                 <AccordionItem>
-                  <h2>
+                  <div>
                     <AccordionButton>
                       <Box as='span' flex='1' textAlign='left'>
                         <Heading size="lg">Networks</Heading>
                       </Box>
                       <AccordionIcon />
                     </AccordionButton>
-                  </h2>
+                  </div>
                   <AccordionPanel pb={4}>
                     <Stack spacing='2'>
                       {['Inbox', 'Notifications', 'Comments'].map((opc) => (
