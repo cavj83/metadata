@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useAccount, useApi } from "@gear-js/react-hooks";
 import { ApiLoader } from "@/components";
-import { Header } from "@/components/layout";
 import { useWalletSync } from "@/features/wallet/hooks";
 import { Home } from "./pages/home";
 import { Info } from "./pages/home/info";
@@ -54,9 +53,9 @@ export function Component() {
   return (
     <>   
       <Card key="Home" size="sm" bg="#8C2CFF">
-        <CardHeader bg="#111120">
+        {/*<CardHeader bg="#111120">
           <Header isAccountVisible={isAccountReady} />
-        </CardHeader>
+        </CardHeader>*/}
         <CardBody bg='#8C2CFF'>
           <Flex>
             <Box p='4' bg='#8C2CFF'>
@@ -102,9 +101,9 @@ export function Component() {
             </Box>
           </Flex>
         </CardBody>
-        <CardFooter bg='blue.300'>
+        {/*<CardFooter bg='blue.300'>
           <Heading size="lg">Stay Conneted</Heading>
-        </CardFooter>
+        </CardFooter>*/}
       </Card>
     </>
   );

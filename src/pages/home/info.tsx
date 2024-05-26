@@ -8,10 +8,7 @@ import { Card,
   Heading, 
   VStack, 
   Text } from "@chakra-ui/react";
-//import { Car } from "lucide-react";
 
-
-//import { AllNFTCollection } from "./MyNFT";
 function Info() {
   return (
     <Card>
