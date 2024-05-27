@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useApi, useAlert } from "@gear-js/react-hooks";
 import { Card, Center, VStack, Text,Box } from "@chakra-ui/react";
 import {RedColor} from "./Red-Color";
+import { NFTs } from '../../components/nfts/shownft';
 function ReadState() {
   const { api } = useApi();
 
@@ -21,10 +22,7 @@ function ReadState() {
 
   const metadata = ProgramMetadata.from(meta);
 
-  const [arrayState, setArrayState] = useState(["name",
-  "description",
-  "media",
-  "reference"]);
+  const [arrayState, setArrayState] = useState([]);
 
   const getState = () => {
     api.programState
@@ -45,12 +43,7 @@ function ReadState() {
           <VStack>
             <RedColor />
           </VStack>
-          <ul>
-          {fullState?
-          arrayState.map(item => (
-          <li key={item[0]}><img id="imglogo" alt="Logo" width="80" className="img-fluid img-thumbnail" src={item[1].media}/></li>))
-          :<li key="0"></li>}
-          </ul>
+          <NFTs struct={arrayState} />
         </VStack>
       </Center>
     </Card>
