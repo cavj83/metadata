@@ -10,10 +10,10 @@ export function NFTs({ struct }: { struct: [number, { media: string }][] }) {
   }, [struct]);
 
   return (
-    <ul>
+    <ul style={{ display: 'flex', flexWrap: 'wrap', listStyle: 'none', padding: 0 }}>
       {Array.isArray(struct)? (
         struct.map((item, index) => (
-          <li key={index}>
+          <li key={index} style={{ width: '33.33%', padding: '10px' }}>
             {getMediaComponent(item[1].media, index)}
           </li>
         ))
