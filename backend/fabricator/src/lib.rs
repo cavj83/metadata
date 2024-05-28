@@ -7,24 +7,24 @@ use io::*;
 #[cfg(feature = "binary-vendor")]
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
-static mut FACTORY: Option<StateFactory> = None;
+static mut FABRICATOR: Option<StateFabricator> = None;
 
 
 #[derive(Debug, Default)]
-pub struct StateFactory {
+pub struct StateFabricator {
     pub number: Id,
     pub code_id: CodeId,
-    pub factory_admin_account: Vec<ActorId>,
+    pub fabricator_admin_account: Vec<ActorId>,
     pub gas_for_program: u64,
     pub id_to_address: HashMap<Id, ActorId>,
     pub registry: HashMap<ActorId, Vec<(Id, Record)>>,
 }
 
-impl StateFactory {
+impl StateFabricator {
     pub async fn create_program(
         &mut self,
         init_config: InitNft,
-    ) -> Result<FactoryEvent, FactoryError> {
+    ) -> Result<FabricatorEvent, FabricatorError> {
         
         let create_program_future =
             ProgramGenerator::create_program_with_gas_for_reply::<InitNft>(
@@ -37,11 +37,11 @@ impl StateFactory {
                 0,
                 0,
             )
-            .map_err(|e| FactoryError::ProgramInitializationFailedWithContext(e.to_string()))?;
+            .map_err(|e| FabricatorError::ProgramInitializationFailedWithContext(e.to_string()))?;
 
         let (address, _) = create_program_future
             .await
-            .map_err(|e| FactoryError::ProgramInitializationFailedWithContext(e.to_string()))?;
+            .map_err(|e| FabricatorError::ProgramInitializationFailedWithContext(e.to_string()))?;
 
         self.number = self.number.saturating_add(1);
 
@@ -51,7 +51,7 @@ impl StateFactory {
 
         let programs_for_actor = self.registry.entry(msg::source()).or_default();
 
-        Ok(FactoryEvent::ProgramCreated {
+        Ok(FabricatorEvent::ProgramCreated {
             id: self.number,
             address: address,
         })
@@ -60,51 +60,51 @@ impl StateFactory {
     pub fn update_gas_for_program(
         &mut self,
         new_gas_amount: u64,
-    ) -> Result<FactoryEvent, FactoryError> {
-        if self.factory_admin_account.contains(&msg::source()) {
+    ) -> Result<FabricatorEvent, FabricatorError> {
+        if self.fabricator_admin_account.contains(&msg::source()) {
             self.gas_for_program = new_gas_amount;
-            Ok(FactoryEvent::GasUpdatedSuccessfully {
+            Ok(FabricatorEvent::GasUpdatedSuccessfully {
                 updated_by: msg::source(),
                 new_gas_amount,
             })
         } else {
-            return Err(FactoryError::Unauthorized);
+            return Err(FabricatorError::Unauthorized);
         }
     }
 
-    pub fn update_code_id(&mut self, new_code_id: CodeId) -> Result<FactoryEvent, FactoryError> {
-        if self.factory_admin_account.contains(&msg::source()) {
+    pub fn update_code_id(&mut self, new_code_id: CodeId) -> Result<FabricatorEvent, FabricatorError> {
+        if self.fabricator_admin_account.contains(&msg::source()) {
             self.code_id = new_code_id;
-            Ok(FactoryEvent::CodeIdUpdatedSuccessfully {
+            Ok(FabricatorEvent::CodeIdUpdatedSuccessfully {
                 updated_by: msg::source(),
                 new_code_id,
             })
         } else {
-            return Err(FactoryError::Unauthorized);
+            return Err(FabricatorError::Unauthorized);
         }
     }
 
-    pub fn add_admin_to_factory(
+    pub fn add_admin_to_fabricator(
         &mut self,
         admin_actor_id: ActorId,
-    ) -> Result<FactoryEvent, FactoryError> {
-        if self.factory_admin_account.contains(&msg::source()) {
-            self.factory_admin_account.push(admin_actor_id);
+    ) -> Result<FabricatorEvent, FabricatorError> {
+        if self.fabricator_admin_account.contains(&msg::source()) {
+            self.fabricator_admin_account.push(admin_actor_id);
 
-            Ok(FactoryEvent::AdminAdded {
+            Ok(FabricatorEvent::AdminAdded {
                 updated_by: msg::source(),
                 admin_actor_id,
             })
         } else {
-            return Err(FactoryError::Unauthorized);
+            return Err(FabricatorError::Unauthorized);
         }
     }
 
-    pub fn remove_registry(&mut self, program_for_id: Id) -> Result<FactoryEvent, FactoryError> {
+    pub fn remove_registry(&mut self, program_for_id: Id) -> Result<FabricatorEvent, FabricatorError> {
         let source = msg::source();
-        if self.factory_admin_account.contains(&source) {
+        if self.fabricator_admin_account.contains(&source) {
             if self.id_to_address.remove(&program_for_id).is_none() {
-                return Err(FactoryError::IdNotFoundInAddress);
+                return Err(FabricatorError::IdNotFoundInAddress);
             }
 
             let mut is_removed = false;
@@ -118,15 +118,15 @@ impl StateFactory {
             }
 
             if !is_removed {
-                return Err(FactoryError::IdNotFound);
+                return Err(FabricatorError::IdNotFound);
             }
 
-            Ok(FactoryEvent::RegistryRemoved  {
+            Ok(FabricatorEvent::RegistryRemoved  {
                 removed_by: source,
                 program_for_id,
             })
         } else {
-            return Err(FactoryError::Unauthorized);
+            return Err(FabricatorError::Unauthorized);
         }
     }
 }
@@ -137,53 +137,53 @@ See: https://wiki.gear-tech.io/docs/examples/Standards/gnft-721/
 */
 #[no_mangle]
 extern "C" fn init() {
-    let init_config_factory: InitConfigFactory =
+    let init_config_fabricator: InitConfigFabricator =
         msg::load().expect("Unable to decode CodeId of the program");
 
-    let factory = StateFactory {
+    let fabricator = StateFabricator {
         number: 0,
-        code_id: init_config_factory.code_id,
-        factory_admin_account: init_config_factory.factory_admin_account,
-        gas_for_program: init_config_factory.gas_for_program,
+        code_id: init_config_fabricator.code_id,
+        fabricator_admin_account: init_config_fabricator.fabricator_admin_account,
+        gas_for_program: init_config_fabricator.gas_for_program,
         ..Default::default()
     };
-    unsafe { FACTORY = Some(factory) };
+    unsafe { FABRICATOR = Some(fabricator) };
 }
 
 #[async_main]
 async fn main() {
-    let action: FactoryAction = msg::load().expect("Could not load Action");
+    let action: FabricatorAction = msg::load().expect("Could not load Action");
 
-    let factory_state = unsafe {
-        FACTORY
+    let fabricator_state = unsafe {
+        FABRICATOR
             .as_mut()
-            .expect("Unexpected error in factory_state")
+            .expect("Unexpected error in Fabricator_state")
     };
 
     let result = match action {
-        FactoryAction::CreateProgram { init_config } => {
-            factory_state.create_program(init_config).await
+        FabricatorAction::CreateProgram { init_config } => {
+            fabricator_state.create_program(init_config).await
         }
-        FactoryAction::AddAdmin { admin_actor_id } => {
-            factory_state.add_admin_to_factory(admin_actor_id)
+        FabricatorAction::AddAdmin { admin_actor_id } => {
+            fabricator_state.add_admin_to_fabricator(admin_actor_id)
         }
-        FactoryAction::UpdateGasProgram(new_gas_amount) => {
-            factory_state.update_gas_for_program(new_gas_amount)
+        FabricatorAction::UpdateGasProgram(new_gas_amount) => {
+            fabricator_state.update_gas_for_program(new_gas_amount)
         }
-        FactoryAction::CodeIdUpdate { new_code_id } => {
-            factory_state.update_code_id(new_code_id)
+        FabricatorAction::CodeIdUpdate { new_code_id } => {
+            fabricator_state.update_code_id(new_code_id)
         }
-        FactoryAction::RemoveRegistry  { id } => factory_state.remove_registry(id),
+        FabricatorAction::RemoveRegistry  { id } => fabricator_state.remove_registry(id),
     };
 
     msg::reply(result, 0)
-        .expect("Failed to encode or reply with `Result<FactoryEvent, FactoryError>`");
+        .expect("Failed to encode or reply with `Result<FabricatorEvent, FabricatorError>`");
 }
 
 #[no_mangle]
 extern "C" fn state() {
-    let factory_state = unsafe {
-        FACTORY
+    let fabricator_state = unsafe {
+        FABRICATOR
             .take()
             .expect("Unexpected error in taking state")
     };

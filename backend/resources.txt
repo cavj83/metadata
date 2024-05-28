@@ -2,15 +2,15 @@ For NFTs:
 https://wiki.gear-tech.io/docs/examples/Standards/gnft-721/
 
 Factory Contract Template:
-https://github.com/Vara-Lab/Smart-Contract-Factory-Template/tree/main
+https://github.com/Vara-Lab/Smart-Contract-Fabricator-Template/tree/main
 
 ToDo:
 [X] 1. Verify NFT Contract in /backend
-[X] 2. Verify Init() in Fabricator for NFT instead of FT
+[X] 2. Verify Init() in Factory for NFT instead of FT
 [] 3. Delete unnecesary fields where applies.
 [] 4. Verify IO dependencies before push into main
-[] 4.1. Consolidate dependencies of Cargo.toml files in Fabricator and NFT
-[] 5. Personalize Both Fabricator and UVENFTS to adapt to UVE Platform
+[] 4.1. Consolidate dependencies of Cargo.toml files in Factory and NFT
+[] 5. Personalize Both Factory and UVENFTS to adapt to UVE Platform
 
 
 

@@ -1,4 +1,4 @@
-import { AlertContainerFactory, withoutCommas } from '@gear-js/react-hooks';
+import { AlertContainerFabricator, withoutCommas } from '@gear-js/react-hooks';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import { ACCOUNT_ID_LOCAL_STORAGE_KEY } from '@/app/consts';
 import { HexString } from '@polkadot/util/types';
@@ -20,7 +20,7 @@ export const copyToClipboard = async ({
   value,
   successfulText,
 }: {
-  alert?: AlertContainerFactory;
+  alert?: AlertContainerFabricator;
   value: string;
   successfulText?: string;
 }) => {

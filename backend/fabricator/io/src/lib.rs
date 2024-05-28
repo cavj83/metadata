@@ -8,7 +8,7 @@ pub type Id = u64;
 #[derive(Encode, Decode, TypeInfo, Debug)]
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
-pub enum FactoryAction {
+pub enum FabricatorAction {
     CreateProgram { init_config: InitNft },
     CodeIdUpdate { new_code_id: CodeId },
     UpdateGasProgram(u64),
@@ -33,7 +33,7 @@ pub struct Record {
 #[derive(Encode, Decode, TypeInfo, Debug)]
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
-pub enum FactoryEvent {
+pub enum FabricatorEvent {
     ProgramCreated {
         id: Id,
         address: ActorId,
@@ -59,7 +59,7 @@ pub enum FactoryEvent {
 #[derive(Debug, Clone, Encode, Decode, TypeInfo)]
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
-pub enum FactoryError {
+pub enum FabricatorError {
     ProgramInitializationFailed,
     ProgramInitializationFailedWithContext(String),
     Unauthorized,
@@ -87,17 +87,17 @@ pub struct Config {
 #[derive(Debug, Decode, Encode, TypeInfo)]
 #[codec(crate = gstd::codec)]
 #[scale_info(crate = gstd::scale_info)]
-pub struct InitConfigFactory {
+pub struct InitConfigFabricator {
     pub code_id: CodeId,
-    pub factory_admin_account: Vec<ActorId>,
+    pub fabricator_admin_account: Vec<ActorId>,
     pub gas_for_program: u64,
 }
 
 pub struct ProgramMetadata;
 
 impl Metadata for ProgramMetadata {
-    type Init = In<InitConfigFactory>;
-    type Handle = InOut<FactoryAction, Result<FactoryEvent, FactoryError>>;
+    type Init = In<InitConfigFabricator>;
+    type Handle = InOut<FabricatorAction, Result<FabricatorEvent, FabricatorError>>;
     type Others = ();
     type Reply = ();
     type Signal = ();
